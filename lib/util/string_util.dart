@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 bool isNumeric(String input) {
-  if (input == null || input.isEmpty) {
+  if (input.isEmpty) {
     return false;
   }
 
@@ -19,7 +19,7 @@ bool isNumeric(String input) {
 }
 
 bool isAlphaNumeric(String input) {
-  if (input == null || input.isEmpty) {
+  if (input.isEmpty) {
     return false;
   }
 
@@ -57,6 +57,26 @@ int getDisplayLength(double width, TextStyle style) {
     displayLength = 3;
   }
   return displayLength;
+}
+
+double getMaxFitFontSize(double width, String str, TextStyle style,
+    {double? maxFontSize}) {
+  double fontSize = maxFontSize ?? 50;
+
+  double displayWidth = double.maxFinite;
+  while (displayWidth > width) {
+    double decrease = 1;
+    if (fontSize < 15) {
+      decrease = 0.5;
+    }
+    fontSize -= decrease;
+    if (fontSize < 8) {
+      break;
+    }
+    style = style.copyWith(fontSize: fontSize);
+    displayWidth = getStringDisplaySize(str, style).width;
+  }
+  return fontSize;
 }
 
 String lengthyString(String input, int length) {
