@@ -1,5 +1,12 @@
 import 'package:intl/intl.dart';
 
+const int msPerSecond = 1000;
+const int msPerMinute = 60 * msPerSecond;
+const int msPerHour = 60 * msPerMinute;
+const int msPerDay = 24 * msPerHour;
+const int msPerWeek = 7 * msPerDay;
+const int msPerMonth = 30 * msPerDay;
+
 DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
 
 String getReadableDuration(Duration duration) {
@@ -22,6 +29,12 @@ String getReadableDuration(Duration duration) {
     }
   }
   return "${duration.inMinutes}";
+}
+
+String getDateTimeStrFromTimestamp(int timestamp,
+    {String format = "yyyy-MM-dd HH:mm:ss"}) {
+  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+  return DateFormat(format).format(dateTime);
 }
 
 String getDateFromDateTimeStr(String dateTimeStr,

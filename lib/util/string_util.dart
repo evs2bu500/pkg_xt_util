@@ -127,7 +127,7 @@ int decideDisplayDecimal(double value) {
     return 1;
   }
   if (value < 1000) {
-    return 1;
+    return 0;
   }
   return 0;
 }
