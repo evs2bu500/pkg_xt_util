@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 // import 'dart:ui';
@@ -26,6 +28,12 @@ double findMax(List<double> list) {
     }
   }
   return max;
+}
+
+//random number between min and max
+double rand(double min, double max) {
+  Random rand = Random();
+  return min + rand.nextDouble() * (max - min);
 }
 
 bool isBetween(double value, double min, double max) {
