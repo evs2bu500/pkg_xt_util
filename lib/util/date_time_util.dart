@@ -44,7 +44,7 @@ String getDateFromDateTimeStr(String dateTimeStr,
 }
 
 DateTime getSgNow() {
-  return DateTime.now().toUtc().add(Duration(hours: 8));
+  return DateTime.now().toUtc().add(const Duration(hours: 8));
 }
 
 String getSgNowStr(String format) {
