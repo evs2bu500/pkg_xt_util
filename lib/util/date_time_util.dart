@@ -46,3 +46,7 @@ String getDateFromDateTimeStr(String dateTimeStr,
 DateTime getSgNow() {
   return DateTime.now().toUtc().add(Duration(hours: 8));
 }
+
+String getSgNowStr(String format) {
+  return DateFormat(format).format(getSgNow());
+}
