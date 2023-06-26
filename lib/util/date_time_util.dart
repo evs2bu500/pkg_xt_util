@@ -37,6 +37,11 @@ String getDateTimeStrFromTimestamp(int timestamp,
   return DateFormat(format).format(dateTime);
 }
 
+String getDateTimeStrFromDateTime(DateTime dateTime,
+    {String format = "yyyy-MM-dd HH:mm:ss"}) {
+  return DateFormat(format).format(dateTime);
+}
+
 String getDateFromDateTimeStr(String dateTimeStr,
     {String format = "yyyy-MM-dd"}) {
   DateTime dateTime = dateFormat.parse(dateTimeStr);
