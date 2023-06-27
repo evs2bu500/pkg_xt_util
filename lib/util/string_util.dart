@@ -111,6 +111,9 @@ int decideDisplayDecimal(double value) {
   if (value == 0) {
     return 0;
   }
+  if (value < 0.001) {
+    return 4;
+  }
   if (value < 0.01) {
     return 3;
   }
