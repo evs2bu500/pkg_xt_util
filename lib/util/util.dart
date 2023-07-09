@@ -54,7 +54,7 @@ bool isJwtToken(String token) {
   return jwtPattern.hasMatch(token);
 }
 
-String explainException(Object e) {
+String explainException(Object e, {String? defaultMsg}) {
   String msg = '';
   String errorMessage = e.toString();
   if (errorMessage.toLowerCase().contains('device') &&
@@ -67,7 +67,7 @@ String explainException(Object e) {
   }
   if (errorMessage.toLowerCase().contains('remote computer') &&
       errorMessage.toLowerCase().contains('refused')) {
-    msg = 'server not available';
+    msg = 'service not available';
   }
   if (errorMessage.toLowerCase().contains('unable to connect') &&
       errorMessage.toLowerCase().contains('authentication')) {
@@ -82,7 +82,7 @@ String explainException(Object e) {
     msg = 'permission not authorized';
   }
 
-  return msg;
+  return msg.isEmpty ? (defaultMsg ?? '') : msg;
 }
 
 String makeReportName(
