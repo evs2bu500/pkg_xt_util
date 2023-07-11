@@ -56,8 +56,13 @@ String getSgNowStr(String format) {
   return DateFormat(format).format(getSgNow());
 }
 
-DateTime getLocalDatetimeNow(int timezone) {
-  return DateTime.now().toUtc().add(Duration(hours: timezone));
+//'target' stands for the brower/app timezone
+//get target local datetime now
+DateTime getTargetLocalDatetimeNow(int targetLocalTimezone) {
+  int systemTimezone = DateTime.now().timeZoneOffset.inHours;
+  return DateTime.now()
+      .toLocal()
+      .add(Duration(hours: targetLocalTimezone - systemTimezone));
 }
 
 String getLocalDatetimeNowStr(int timezone,
@@ -67,7 +72,6 @@ String getLocalDatetimeNowStr(int timezone,
       .format(DateTime.now().toUtc().add(Duration(hours: timezone)));
 }
 
-//target stands for the brower/app timezone
 DateTime getTargetDatetime(int targetTimestamp) {
   return DateTime.fromMillisecondsSinceEpoch(targetTimestamp);
 }
