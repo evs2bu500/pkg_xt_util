@@ -55,3 +55,34 @@ DateTime getSgNow() {
 String getSgNowStr(String format) {
   return DateFormat(format).format(getSgNow());
 }
+
+DateTime getLocalDatetimeNow(int timezone) {
+  return DateTime.now().toUtc().add(Duration(hours: timezone));
+}
+
+String getLocalDatetimeNowStr(int timezone,
+    {String? format = "yyyy-MM-dd HH:mm:ss"}) {
+  String xformat = format ?? "yyyy-MM-dd HH:mm:ss";
+  return DateFormat(xformat)
+      .format(DateTime.now().toUtc().add(Duration(hours: timezone)));
+}
+
+//target stands for the brower/app timezone
+DateTime getTargetDatetime(int targetTimestamp) {
+  return DateTime.fromMillisecondsSinceEpoch(targetTimestamp);
+}
+
+DateTime getTargetDatetimeFromTargetStr(String targetDateTimeStr) {
+  DateTime targetDateTime = DateTime.parse(targetDateTimeStr);
+
+  return targetDateTime;
+}
+
+String getLocalDatetimeStr(DateTime datetime, int timezone,
+    {String? format = "yyyy-MM-dd HH:mm:ss"}) {
+  String xformat = format ?? "yyyy-MM-dd HH:mm:ss";
+  return DateFormat(xformat).format(
+      DateTime.fromMillisecondsSinceEpoch(datetime.millisecondsSinceEpoch)
+          .toUtc()
+          .add(Duration(hours: timezone)));
+}
