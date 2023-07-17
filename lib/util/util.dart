@@ -175,3 +175,17 @@ double screenWidthMinMaxR(BuildContext context,
     return min(maxWR! * screenWidth, max(minWR! * screenWidth, screenWidth));
   }
 }
+
+double screenWidthRMinMax(BuildContext context, double perentage,
+    {double? minW, double? maxW}) {
+  double screenWidth = MediaQuery.of(context).size.width;
+  if (minW == null && maxW == null) {
+    return screenWidth * perentage;
+  } else if (minW != null && maxW == null) {
+    return max(minW, screenWidth * perentage);
+  } else if (minW == null && maxW != null) {
+    return min(maxW, screenWidth * perentage);
+  } else {
+    return min(maxW!, max(minW!, screenWidth * perentage));
+  }
+}
