@@ -135,3 +135,43 @@ double screenWidth(BuildContext context, {double? minW, double? maxW}) {
     return min(maxW!, max(minW!, MediaQuery.of(context).size.width));
   }
 }
+
+double screenWidthMinR(BuildContext context, {double? minWR, double? maxW}) {
+  double screenWidth = MediaQuery.of(context).size.width;
+  if (minWR == null && maxW == null) {
+    return screenWidth;
+  } else if (minWR != null && maxW == null) {
+    return max(minWR * screenWidth, screenWidth);
+  } else if (minWR == null && maxW != null) {
+    return min(maxW, screenWidth);
+  } else {
+    return min(maxW!, max(minWR! * screenWidth, screenWidth));
+  }
+}
+
+double screenWidthMaxR(BuildContext context, {double? minW, double? maxWR}) {
+  double screenWidth = MediaQuery.of(context).size.width;
+  if (minW == null && maxWR == null) {
+    return screenWidth;
+  } else if (minW != null && maxWR == null) {
+    return max(minW, screenWidth);
+  } else if (minW == null && maxWR != null) {
+    return min(maxWR * screenWidth, screenWidth);
+  } else {
+    return min(maxWR! * screenWidth, max(minW!, screenWidth));
+  }
+}
+
+double screenWidthMinMaxR(BuildContext context,
+    {double? minWR, double? maxWR}) {
+  double screenWidth = MediaQuery.of(context).size.width;
+  if (minWR == null && maxWR == null) {
+    return screenWidth;
+  } else if (minWR != null && maxWR == null) {
+    return max(minWR * screenWidth, screenWidth);
+  } else if (minWR == null && maxWR != null) {
+    return min(maxWR * screenWidth, screenWidth);
+  } else {
+    return min(maxWR! * screenWidth, max(minWR! * screenWidth, screenWidth));
+  }
+}
