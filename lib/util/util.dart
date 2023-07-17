@@ -123,3 +123,15 @@ bool canPullData(bool hasData, DateTime? lastRequst, int? reqInterval,
   }
   return pullData;
 }
+
+double screenWidth(BuildContext context, {double? minW, double? maxW}) {
+  if (minW == null && maxW == null) {
+    return MediaQuery.of(context).size.width;
+  } else if (minW != null && maxW == null) {
+    return max(minW, MediaQuery.of(context).size.width);
+  } else if (minW == null && maxW != null) {
+    return min(maxW, MediaQuery.of(context).size.width);
+  } else {
+    return min(maxW!, max(minW!, MediaQuery.of(context).size.width));
+  }
+}
