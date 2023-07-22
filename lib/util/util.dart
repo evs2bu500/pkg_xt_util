@@ -189,3 +189,59 @@ double screenWidthRMinMax(BuildContext context, double perentage,
     return min(maxW!, max(minW!, screenWidth * perentage));
   }
 }
+
+Widget getPalletteColorWidget(BuildContext context) {
+  return Container(
+    color: Colors.yellow,
+    child: Row(children: [
+      Text('canvasColor',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).canvasColor)),
+      Text('indicatorColor',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).indicatorColor)),
+      Text('primary',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.primary)),
+      Text('secondary',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.secondary)),
+      Text('background',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.background)),
+      Text('surface',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.surface)),
+      Text('error',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.error)),
+      Text('onPrimary',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onPrimary)),
+      Text('onSecondary',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onSecondary)),
+      Text('onBackground',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onBackground)),
+      Text('onSurface',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onSurface)),
+      Text('onError',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onError)),
+    ]),
+  );
+}
