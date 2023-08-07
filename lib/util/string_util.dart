@@ -163,3 +163,14 @@ Uint8List dataFromBase64String(String base64String) {
 String base64String(Uint8List data) {
   return base64Encode(data);
 }
+
+String getK(double amount) {
+  //parse amount 500 into 0.5k etc
+  String k = '';
+  if (amount >= 1000) {
+    k = '${(amount / 1000).toStringAsFixed(0)}k';
+  } else {
+    k = amount.toString();
+  }
+  return k;
+}
