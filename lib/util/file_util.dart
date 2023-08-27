@@ -19,7 +19,7 @@ Future<String> downloadCSV(List<Map<String, dynamic>> table,
     for (var j = 0; j < listConfig.length; j++) {
       if (j == 0) continue;
       rowToSave[listConfig[j]['fieldKey']] =
-          table[i][listConfig[j]['fieldKey']];
+          '${table[i][listConfig[j]['fieldKey']]}';
       rowToSave['${listConfig[j]['fieldKey']}_error'] =
           table[i]['${listConfig[j]['fieldKey']}_error'] ?? '';
     }
