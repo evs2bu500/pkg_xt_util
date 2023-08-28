@@ -106,6 +106,9 @@ String convertToDisplayString(
   }
 
   int length = (input.length * containerWidth / displayWidth).floor() - 5;
+  if (length < 3) {
+    length = 3;
+  }
 
   return '${input.substring(0, length)}...';
 }
