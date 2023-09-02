@@ -31,6 +31,81 @@ String getReadableDuration(Duration duration) {
   return "${duration.inMinutes}";
 }
 
+String? validateDatTimeStr(String dateTimeStr,
+    {String format = "yyyy-MM-dd HH:mm:ss"}) {
+  int formatLength = format.length;
+  int length = dateTimeStr.length;
+  if (length != formatLength) {
+    return 'Invalid date time format';
+  }
+  if (DateTime.tryParse(dateTimeStr) == null) {
+    return 'Invalid date time format';
+  }
+  //check year
+  int? year = int.tryParse(dateTimeStr.substring(0, 4));
+  if (year != null) {
+    if (year < 2020 || year > 2120) {
+      return 'Invalid year';
+    }
+  }
+  //check month
+  int? month = int.tryParse(dateTimeStr.substring(5, 7));
+  if (month != null) {
+    if (month < 1 || month > 12) {
+      return 'Invalid month';
+    }
+  }
+  //check day
+  int? day = int.tryParse(dateTimeStr.substring(8, 10));
+  if (day != null) {
+    if (day < 1 || day > 31) {
+      return 'Invalid day';
+    }
+    //check that day is valid for the month
+    if (day > 28) {
+      if (month == 2) {
+        if (day > 29) {
+          return 'Invalid day for February';
+        }
+        if (day == 29 && year! % 4 != 0) {
+          return 'Invalid day for February';
+        }
+      } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+        if (day > 30) {
+          return 'Invalid day for this month';
+        }
+      }
+    }
+  }
+  //check hour
+  String hourStr = dateTimeStr.length > 13 ? dateTimeStr.substring(11, 13) : '';
+  int? hour = int.tryParse(hourStr);
+  if (hour != null) {
+    if (hour < 0 || hour > 23) {
+      return 'Invalid hour';
+    }
+  }
+  //check minute
+  String minStr = dateTimeStr.length > 16 ? dateTimeStr.substring(14, 16) : '';
+  int? minute = int.tryParse(minStr);
+  if (minute != null) {
+    if (minute < 0 || minute > 59) {
+      return 'Invalid minute';
+    }
+  }
+  //check second
+  String secondStr =
+      dateTimeStr.length > 17 ? dateTimeStr.substring(17, 19) : '';
+  int? second = int.tryParse(secondStr);
+  if (second != null) {
+    if (second < 0 || second > 59) {
+      return 'Invalid second';
+    }
+  }
+
+  return null;
+}
+
 String getDateTimeStrFromTimestamp(int timestamp,
     {String format = "yyyy-MM-dd HH:mm:ss"}) {
   DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
