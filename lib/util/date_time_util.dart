@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 
 const int msPerSecond = 1000;
@@ -33,6 +34,14 @@ String getReadableDuration(Duration duration) {
 
 String? validateDatTimeStr(String dateTimeStr,
     {String format = "yyyy-MM-dd HH:mm:ss"}) {
+  if ((format != "yyyy-MM-dd HH:mm:ss") &&
+      (format != "yyyy-MM-dd HH:mm") &&
+      (format != "yyyy-MM-dd")) {
+    if (kDebugMode) {
+      print("Validator: Unsupported DataTime format");
+    }
+    return 'Unsupported DataTime format';
+  }
   int formatLength = format.length;
   int length = dateTimeStr.length;
   if (length != formatLength) {
@@ -78,7 +87,8 @@ String? validateDatTimeStr(String dateTimeStr,
     }
   }
   //check hour
-  String hourStr = dateTimeStr.length > 13 ? dateTimeStr.substring(11, 13) : '';
+  String hourStr =
+      dateTimeStr.length >= 13 ? dateTimeStr.substring(11, 13) : '';
   int? hour = int.tryParse(hourStr);
   if (hour != null) {
     if (hour < 0 || hour > 23) {
@@ -86,7 +96,7 @@ String? validateDatTimeStr(String dateTimeStr,
     }
   }
   //check minute
-  String minStr = dateTimeStr.length > 16 ? dateTimeStr.substring(14, 16) : '';
+  String minStr = dateTimeStr.length >= 16 ? dateTimeStr.substring(14, 16) : '';
   int? minute = int.tryParse(minStr);
   if (minute != null) {
     if (minute < 0 || minute > 59) {
@@ -95,7 +105,7 @@ String? validateDatTimeStr(String dateTimeStr,
   }
   //check second
   String secondStr =
-      dateTimeStr.length > 17 ? dateTimeStr.substring(17, 19) : '';
+      dateTimeStr.length >= 19 ? dateTimeStr.substring(17, 19) : '';
   int? second = int.tryParse(secondStr);
   if (second != null) {
     if (second < 0 || second > 59) {
