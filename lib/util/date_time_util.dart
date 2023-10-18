@@ -150,6 +150,42 @@ DateTime getTargetLocalDatetimeNow(int targetLocalTimezone) {
       .add(Duration(hours: targetLocalTimezone - systemTimezone));
 }
 
+// get target local datetime in hour, minute, second,
+// example: getTargetLocalDatetime(8, 12, 0, 0) will return 12:00:00 in Singapore time
+DateTime getTargetLocalDatetime(
+    int targetLocalTimezone, int hour, int minute, int second, int milli,
+    {DateTime? refLocalDatetime}) {
+  DateTime targetLocalDatetime;
+  if (refLocalDatetime != null) {
+    targetLocalDatetime = refLocalDatetime;
+  } else {
+    // Calculate the timezone offset in hours
+    Duration timezoneOffset = Duration(hours: targetLocalTimezone);
+
+    // Get the current UTC time
+    DateTime currentUtcTime = DateTime.now().toUtc();
+    // if (refDatetime != null) {
+    //   currentUtcTime = refDatetime.toUtc();
+    // }
+
+    // Apply the timezone offset to the current UTC time
+    targetLocalDatetime = currentUtcTime.add(timezoneOffset);
+  }
+
+  // Set the time components
+  targetLocalDatetime = DateTime(
+      targetLocalDatetime.year,
+      targetLocalDatetime.month,
+      targetLocalDatetime.day,
+      hour,
+      minute,
+      second,
+      milli,
+      0);
+
+  return targetLocalDatetime;
+}
+
 String getLocalDatetimeNowStr(int timezone,
     {String? format = "yyyy-MM-dd HH:mm:ss"}) {
   String xformat = format ?? "yyyy-MM-dd HH:mm:ss";
