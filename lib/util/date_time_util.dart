@@ -15,10 +15,10 @@ String getReadableDuration(Duration duration) {
     if (duration.inHours < 72) {
       int hour = duration.inHours;
       return "$hour hour${hour > 1 ? "s" : ""}";
-    } else if (duration.inDays < 7) {
+    } else if (duration.inDays < 8) {
       int day = duration.inDays;
       return "$day day${day > 1 ? "s" : ""}";
-    } else if (duration.inDays < 30) {
+    } else if (duration.inDays < 63) {
       int week = duration.inDays ~/ 7;
       return "$week week${week > 1 ? "s" : ""}";
     } else if (duration.inDays < 365) {
