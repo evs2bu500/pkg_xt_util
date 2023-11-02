@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'dart:ui' as ui;
 
 bool isNumeric(String input) {
   if (input.isEmpty) {
@@ -49,7 +51,9 @@ Size getStringDisplaySize(String text, TextStyle style) {
   final TextPainter textPainter = TextPainter(
       text: TextSpan(text: text, style: style),
       maxLines: 1,
-      textDirection: TextDirection.ltr)
+      textDirection: ui.TextDirection.ltr
+      //TextDirection.LTR ?? TextDirection.UNKNOWN,
+      )
     ..layout(minWidth: 0, maxWidth: double.infinity);
   return textPainter.size;
 }
@@ -176,4 +180,14 @@ String getK(double amount) {
     k = amount.toString();
   }
   return k;
+}
+
+String getCommaNumberStr(double value, {int decimal = 0}) {
+  final NumberFormat commaFormat = NumberFormat.decimalPattern('en_us');
+  String valueStr = value.toStringAsFixed(decimal);
+  if (valueStr.contains('.')) {
+    valueStr = valueStr.replaceAll(RegExp(r'0*$'), '');
+    valueStr = valueStr.replaceAll(RegExp(r'\.$'), '');
+  }
+  return commaFormat.format(double.parse(valueStr));
 }
