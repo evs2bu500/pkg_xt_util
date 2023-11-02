@@ -101,8 +101,18 @@ String makeReportName(
 
 bool canPullData(bool hasData, DateTime? lastRequst, int? reqInterval,
     DateTime? lastLoad, int? loadInteval) {
+  // if (!hasData) {
+  //   return true;
+  // }
   if (!hasData) {
-    return true;
+    if (lastRequst == null) {
+      return true;
+    }
+
+    //send request not more than once every 5 seconds
+    if (DateTime.now().difference(lastRequst).inSeconds < (reqInterval ?? 5)) {
+      return false;
+    }
   }
 
   bool pullData = true;
