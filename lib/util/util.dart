@@ -134,6 +134,43 @@ bool canPullData(bool hasData, DateTime? lastRequst, int? reqInterval,
   return pullData;
 }
 
+bool canPullData2(bool hasData, DateTime? lastRequst, int? reqIntervalMillis,
+    DateTime? lastLoad, int? loadIntevalMillis) {
+  // if (!hasData) {
+  //   return true;
+  // }
+  if (!hasData) {
+    if (lastRequst == null) {
+      return true;
+    }
+
+    //send request not more than once every 5 seconds
+    if (DateTime.now().difference(lastRequst).inMilliseconds <
+        (reqIntervalMillis ?? 500)) {
+      return false;
+    }
+  }
+
+  bool pullData = true;
+  if (lastRequst != null) {
+    if (DateTime.now().difference(lastRequst).inMilliseconds <
+        (reqIntervalMillis ?? 3)) {
+      pullData = false;
+    }
+  }
+  if (pullData) {
+    if (hasData) {
+      if (lastLoad != null) {
+        if (DateTime.now().difference(lastLoad).inSeconds <
+            (loadIntevalMillis ?? 60000)) {
+          pullData = false;
+        }
+      }
+    }
+  }
+  return pullData;
+}
+
 double screenWidth(BuildContext context, {double? minW, double? maxW}) {
   if (minW == null && maxW == null) {
     return MediaQuery.of(context).size.width;
