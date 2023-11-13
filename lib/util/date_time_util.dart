@@ -29,7 +29,7 @@ String getReadableDuration(Duration duration) {
       return "$year year${year > 1 ? "s" : ""}";
     }
   }
-  return "${duration.inMinutes}";
+  return "${duration.inMinutes} min${duration.inMinutes > 1 ? "s" : ""}";
 }
 
 String? validateDatTimeStr(String dateTimeStr,
