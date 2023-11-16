@@ -136,7 +136,8 @@ bool canPullData(bool hasData, DateTime? lastRequst, int? reqInterval,
 }
 
 bool canPullData2(bool hasData, DateTime? lastRequst, int? reqIntervalMillis,
-    DateTime? lastLoad, int? loadIntevalMillis) {
+    DateTime? lastLoad, int? loadIntevalMillis,
+    {bool log = false}) {
   if (!hasData) {
     if (lastRequst == null) {
       return true;
@@ -146,9 +147,11 @@ bool canPullData2(bool hasData, DateTime? lastRequst, int? reqIntervalMillis,
   if (lastRequst != null) {
     int diff = DateTime.now().difference(lastRequst).inMilliseconds;
     if (diff < (reqIntervalMillis ?? 3000)) {
-      if (kDebugMode) {
-        print(
-            'canPullData2: false reqIntervalMillis: $diff < $reqIntervalMillis');
+      if (log) {
+        if (kDebugMode) {
+          print(
+              'canPullData2: false reqIntervalMillis: $diff < $reqIntervalMillis');
+        }
       }
       return false;
     }
@@ -157,9 +160,11 @@ bool canPullData2(bool hasData, DateTime? lastRequst, int? reqIntervalMillis,
     if (lastLoad != null) {
       int diff = DateTime.now().difference(lastLoad).inMilliseconds;
       if (diff < (loadIntevalMillis ?? 60000)) {
-        if (kDebugMode) {
-          print(
-              'canPullData2: false loadIntevalMillis: $diff < $loadIntevalMillis');
+        if (log) {
+          if (kDebugMode) {
+            print(
+                'canPullData2: false loadIntevalMillis: $diff < $loadIntevalMillis');
+          }
         }
         return false;
       }
