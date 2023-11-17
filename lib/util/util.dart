@@ -173,6 +173,48 @@ bool canPullData2(bool hasData, DateTime? lastRequst, int? reqIntervalMillis,
   return true;
 }
 
+bool canPullData3(bool isPulling, bool hasData, DateTime? lastRequst,
+    int? reqIntervalMillis, DateTime? lastLoad, int? loadIntevalMillis,
+    {bool log = false}) {
+  if (isPulling) {
+    return false;
+  }
+
+  if (!hasData) {
+    if (lastRequst == null) {
+      return true;
+    }
+  }
+
+  if (lastRequst != null) {
+    int diff = DateTime.now().difference(lastRequst).inMilliseconds;
+    if (diff < (reqIntervalMillis ?? 3000)) {
+      if (log) {
+        if (kDebugMode) {
+          print(
+              'canPullData2: false reqIntervalMillis: $diff < $reqIntervalMillis');
+        }
+      }
+      return false;
+    }
+  }
+  if (hasData) {
+    if (lastLoad != null) {
+      int diff = DateTime.now().difference(lastLoad).inMilliseconds;
+      if (diff < (loadIntevalMillis ?? 60000)) {
+        if (log) {
+          if (kDebugMode) {
+            print(
+                'canPullData2: false loadIntevalMillis: $diff < $loadIntevalMillis');
+          }
+        }
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 double screenWidth(BuildContext context, {double? minW, double? maxW}) {
   if (minW == null && maxW == null) {
     return MediaQuery.of(context).size.width;
