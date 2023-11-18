@@ -173,13 +173,9 @@ bool canPullData2(bool hasData, DateTime? lastRequst, int? reqIntervalMillis,
   return true;
 }
 
-bool canPullData3(bool isPulling, bool hasData, DateTime? lastRequst,
-    int? reqIntervalMillis, DateTime? lastLoad, int? loadIntevalMillis,
-    {bool log = false}) {
-  if (isPulling) {
-    return false;
-  }
-
+bool canPullData3(bool hasData, DateTime? lastRequst, int? reqIntervalMillis,
+    DateTime? lastLoad, int? loadIntevalMillis,
+    {int timeoutMillis = 13000, bool log = false}) {
   if (!hasData) {
     if (lastRequst == null) {
       return true;
@@ -194,6 +190,17 @@ bool canPullData3(bool isPulling, bool hasData, DateTime? lastRequst,
           print(
               'canPullData2: false reqIntervalMillis: $diff < $reqIntervalMillis');
         }
+      }
+      return false;
+    }
+    if (!hasData) {
+      if (diff > (timeoutMillis)) {
+        if (log) {
+          if (kDebugMode) {
+            print('canPullData2: false timeoutMillis: $diff > $timeoutMillis');
+          }
+        }
+        return false;
       }
       return false;
     }
