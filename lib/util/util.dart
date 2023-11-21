@@ -150,7 +150,7 @@ bool canPullData2(bool hasData, DateTime? lastRequst, int? reqIntervalMillis,
       if (log) {
         if (kDebugMode) {
           print(
-              'canPullData2: false reqIntervalMillis: $diff < $reqIntervalMillis');
+              'canPullData2: false reqIntervalMillis: $lastRequst $diff < $reqIntervalMillis');
         }
       }
       return false;
@@ -163,7 +163,7 @@ bool canPullData2(bool hasData, DateTime? lastRequst, int? reqIntervalMillis,
         if (log) {
           if (kDebugMode) {
             print(
-                'canPullData2: false loadIntevalMillis: $diff < $loadIntevalMillis');
+                'canPullData2: false loadIntevalMillis: $lastLoad $diff < $loadIntevalMillis');
           }
         }
         return false;
