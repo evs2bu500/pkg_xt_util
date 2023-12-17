@@ -103,13 +103,13 @@ String convertToDisplayString(
   if (input.isEmpty) {
     return '';
   }
-  double displayWidth = getStringDisplaySize(input, style).width;
+  double displayWidth = 1.1 * getStringDisplaySize(input, style).width;
 
   if (displayWidth <= containerWidth) {
     return input;
   }
 
-  int length = (input.length * containerWidth / displayWidth).floor() - 5;
+  int length = (input.length * containerWidth / displayWidth).floor() - 2;
   if (length < 3) {
     length = 3;
   }
