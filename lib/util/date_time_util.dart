@@ -116,6 +116,72 @@ String? validateDatTimeStr(String dateTimeStr,
   return null;
 }
 
+String? validateTimeStr(String dateTimeStr, {String format = "HH:mm"}) {
+  if ((format != "HH:mm") && (format != "HH:mm:ss")) {
+    if (kDebugMode) {
+      print("Validator: Unsupported Time format");
+    }
+    return 'Unsupported Time format';
+  }
+  int formatLength = format.length;
+  int length = dateTimeStr.length;
+  if (length != formatLength) {
+    return 'Invalid time format';
+  }
+  // if (DateTime.tryParse(dateTimeStr) == null) {
+  //   return 'Invalid time format';
+  // }
+  //check hour
+  String hourStr = dateTimeStr.length >= 2 ? dateTimeStr.substring(0, 2) : '';
+  int? hour = int.tryParse(hourStr);
+  if (hour != null) {
+    if (hour < 0 || hour > 23) {
+      return 'Invalid hour';
+    }
+  }
+  //check minute
+  String minStr = dateTimeStr.length >= 5 ? dateTimeStr.substring(3, 5) : '';
+  int? minute = int.tryParse(minStr);
+  if (minute != null) {
+    if (minute < 0 || minute > 59) {
+      return 'Invalid minute';
+    }
+  }
+  //check second
+  if (format == "HH:mm:ss") {
+    String secondStr =
+        dateTimeStr.length >= 8 ? dateTimeStr.substring(6, 8) : '';
+    int? second = int.tryParse(secondStr);
+    if (second != null) {
+      if (second < 0 || second > 59) {
+        return 'Invalid second';
+      }
+    }
+  }
+  return null;
+}
+
+bool isTimeBefore(String hhmm1, String hhmm2, {String format = "HH:mm"}) {
+  if (validateTimeStr(hhmm1, format: format) != null) {
+    return false;
+  }
+  if (validateTimeStr(hhmm2, format: format) != null) {
+    return false;
+  }
+  int hour1 = int.parse(hhmm1.substring(0, 2));
+  int min1 = int.parse(hhmm1.substring(3, 5));
+  int hour2 = int.parse(hhmm2.substring(0, 2));
+  int min2 = int.parse(hhmm2.substring(3, 5));
+  if (hour1 < hour2) {
+    return true;
+  } else if (hour1 == hour2) {
+    if (min1 < min2) {
+      return true;
+    }
+  }
+  return false;
+}
+
 String getDateTimeStrFromTimestamp(int timestamp,
     {String format = "yyyy-MM-dd HH:mm:ss"}) {
   DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
