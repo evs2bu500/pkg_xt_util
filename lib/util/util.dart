@@ -60,27 +60,30 @@ String explainException(Object e, {String? defaultMsg}) {
   String errorMessage = e.toString();
   if (errorMessage.toLowerCase().contains('device') &&
       errorMessage.toLowerCase().contains('not online')) {
-    msg = 'device not online';
+    return 'device not online';
   }
   if (errorMessage.toLowerCase().contains('no ') &&
       errorMessage.toLowerCase().contains('permission')) {
-    msg = 'no permission';
+    return 'no permission';
   }
   if (errorMessage.toLowerCase().contains('remote computer') &&
       errorMessage.toLowerCase().contains('refused')) {
-    msg = 'service not available';
+    return 'service not available';
   }
   if (errorMessage.toLowerCase().contains('unable to connect') &&
       errorMessage.toLowerCase().contains('authentication')) {
-    msg = 'authentication server not available';
+    return 'authentication server not available';
   }
   if (errorMessage.toLowerCase().contains('internal server') &&
       errorMessage.toLowerCase().contains('error')) {
-    msg = 'service error';
+    return 'service error';
   }
   if (errorMessage.toLowerCase().contains('not authorized') &&
       errorMessage.toLowerCase().contains('perform this operation')) {
-    msg = 'permission not authorized';
+    return 'permission not authorized';
+  }
+  if (errorMessage.toLowerCase().contains('duplicate key value')) {
+    return 'duplicate value error';
   }
 
   return msg.isEmpty ? (defaultMsg ?? '') : msg;
