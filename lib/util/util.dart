@@ -85,6 +85,10 @@ String explainException(Object e, {String? defaultMsg}) {
   if (errorMessage.toLowerCase().contains('duplicate key value')) {
     return 'duplicate value error';
   }
+  if (errorMessage.toLowerCase().contains('no') &&
+      errorMessage.toLowerCase().contains('found')) {
+    return 'no record found';
+  }
 
   return msg.isEmpty ? (defaultMsg ?? '') : msg;
 }
