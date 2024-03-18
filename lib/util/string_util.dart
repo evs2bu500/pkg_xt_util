@@ -182,12 +182,15 @@ String getK(double amount) {
   return k;
 }
 
-String getCommaNumberStr(double value, {int decimal = 0}) {
+String getCommaNumberStr(double? value, {int decimal = 0}) {
   final NumberFormat commaFormat = NumberFormat.decimalPattern('en_us');
-  String valueStr = value.toStringAsFixed(decimal);
+  String valueStr = value == null ? '-' : value.toStringAsFixed(decimal);
   if (valueStr.contains('.')) {
     valueStr = valueStr.replaceAll(RegExp(r'0*$'), '');
     valueStr = valueStr.replaceAll(RegExp(r'\.$'), '');
+  }
+  if (valueStr == '-') {
+    return valueStr;
   }
   return commaFormat.format(double.parse(valueStr));
 }
