@@ -114,6 +114,10 @@ String convertToDisplayString(
     length = 3;
   }
 
+  if (input.length <= length) {
+    return input;
+  }
+
   return '${input.substring(0, length)}...';
 }
 
