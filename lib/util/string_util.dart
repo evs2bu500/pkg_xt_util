@@ -175,13 +175,13 @@ String base64String(Uint8List data) {
   return base64Encode(data);
 }
 
-String getK(double amount) {
+String getK(double amount, int kDecimal) {
   //parse amount 500 into 0.5k etc
   String k = '';
   if (amount >= 1000) {
     k = '${(amount / 1000).toStringAsFixed(0)}k';
   } else {
-    k = amount.toString();
+    k = amount.toStringAsFixed(kDecimal);
   }
   return k;
 }
